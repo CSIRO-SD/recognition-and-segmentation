@@ -1,0 +1,1 @@
+python eval_gdino_sam_zeroshot.py --split test --device cuda

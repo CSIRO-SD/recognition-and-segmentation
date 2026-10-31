@@ -1,0 +1,6 @@
+- 使用的数据来源
+    - 标注：/datasets/work/icvg-phd-marsfield/work/all_crops/cleaned_json/
+    - 图像：/datasets/work/icvg-phd-marsfield/work/all_crops/images/
+    - 区分好的train set: /scratch3/xu097/proj06/labelingv2/singular_sam3_train.json
+    - 区分好的validation set: /scratch3/xu097/proj06/labelingv2/singular_sam3_val.json
+    - 区分好的test set: /scratch3/xu097/proj06/labelingv2/singular_sam3_test.json

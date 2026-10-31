@@ -1,0 +1,1 @@
+python eval_clipseg_balanced.py --device cuda

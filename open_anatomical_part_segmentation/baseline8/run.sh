@@ -1,0 +1,1 @@
+python eval_gdino_sam2_balanced.py --split test --device cuda

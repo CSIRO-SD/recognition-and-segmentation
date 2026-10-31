@@ -1,0 +1,1 @@
+python val_gdino_sam2_balanced.py 
