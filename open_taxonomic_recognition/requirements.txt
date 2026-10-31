@@ -1,0 +1,11 @@
+# Pin versions in production; loose pins for scaffold.
+torch>=2.1,<3
+torchvision>=0.16
+transformers>=4.40
+accelerate>=0.27
+pandas>=2.0
+sentencepiece>=0.1.99
+protobuf>=3.20
+pillow>=10.0
+tqdm>=4.66
+peft>=0.7.0

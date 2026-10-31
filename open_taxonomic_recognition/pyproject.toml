@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clip_siglip"
+version = "0.1.0"
+description = "Open-vocabulary taxonomy experiments with CLIP / SigLIP / DINO bridges"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["clip_siglip*"]
+
