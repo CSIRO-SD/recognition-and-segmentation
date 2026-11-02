@@ -78,6 +78,41 @@ def load_coco_gt(coco_path: Path) -> dict:
         return json.load(f)
 
 
+def build_sam3_image_model_from_training_checkpoint(
+    *, bpe_path: Path | str, checkpoint_path: Path | str, device: str
+):
+    """Build SAM3 and load a checkpoint emitted by ``sam3.train.Trainer``.
+
+    SAM3's public model builder expects release checkpoints whose image weights are
+    nested below ``detector.*``. Fine-tuning checkpoints instead store the image
+    model's state dict directly under ``model``; passing those to the public builder
+    silently filters out every weight and leaves a randomly initialized model.
+    """
+    from sam3.model_builder import build_sam3_image_model
+
+    model = build_sam3_image_model(
+        bpe_path=str(bpe_path),
+        device="cpu",
+        eval_mode=True,
+        checkpoint_path=None,
+        load_from_HF=False,
+        enable_segmentation=True,
+    )
+    checkpoint = torch.load(
+        str(checkpoint_path), map_location="cpu", weights_only=True
+    )
+    state_dict = checkpoint.get("model", checkpoint)
+    if not isinstance(state_dict, dict):
+        raise TypeError("SAM3 training checkpoint does not contain a model state dict")
+    missing, unexpected = model.load_state_dict(state_dict, strict=False)
+    if missing or unexpected:
+        raise RuntimeError(
+            "Fine-tuned SAM3 checkpoint is incompatible with the image model: "
+            f"{len(missing)} missing keys, {len(unexpected)} unexpected keys"
+        )
+    return model.to(device).eval()
+
+
 def resolve_dataset_image_path(
     dataset_root: Path, relative_file_name: str
 ) -> Path | None:
@@ -207,11 +242,17 @@ def run_sam3_image_inference_to_coco_predictions(
             masks = masks.unsqueeze(1)
 
         predictions[image_id] = {
-            "boxes": boxes,
-            "scores": scores,
-            "labels": labels,
-            "masks": masks,
+            # Keep accumulated results off the GPU. Full-resolution masks are large;
+            # retaining them on CUDA until all images finish causes memory usage to
+            # grow linearly with dataset size and eventually OOM on otherwise ample
+            # 48 GB cards.
+            "boxes": boxes.detach().cpu(),
+            "scores": scores.detach().cpu(),
+            "labels": labels.detach().cpu(),
+            "masks": masks.detach().cpu(),
         }
+
+        del state, box_chunks, score_chunks, label_chunks, mask_chunks
 
         if empty_cuda_cache_each_image and torch.cuda.is_available():
             torch.cuda.empty_cache()
@@ -284,21 +325,27 @@ def _sam3_mp_inference_worker(
     import time
 
     from sam3.model.sam3_image_processor import Sam3Processor
-    from sam3.model_builder import build_sam3_image_model
 
     try:
         time.sleep(min(rank * 1.5, 20.0))
         coco_gt = load_coco_gt(Path(kw["gt_json"]))
         dataset_root = Path(kw["dataset_root"])
         ck_raw = (kw.get("checkpoint_path") or "").strip()
-        model = build_sam3_image_model(
-            bpe_path=kw["bpe_path"],
-            device="cuda",
-            eval_mode=True,
-            checkpoint_path=ck_raw if ck_raw else None,
-            load_from_HF=bool(kw["load_from_hf"]),
-            enable_segmentation=True,
-        )
+        if ck_raw and not bool(kw["load_from_hf"]):
+            model = build_sam3_image_model_from_training_checkpoint(
+                bpe_path=kw["bpe_path"], checkpoint_path=ck_raw, device="cuda"
+            )
+        else:
+            from sam3.model_builder import build_sam3_image_model
+
+            model = build_sam3_image_model(
+                bpe_path=kw["bpe_path"],
+                device="cuda",
+                eval_mode=True,
+                checkpoint_path=ck_raw if ck_raw else None,
+                load_from_HF=bool(kw["load_from_hf"]),
+                enable_segmentation=True,
+            )
         processor = Sam3Processor(model, device="cuda")
         preds = run_sam3_image_inference_to_coco_predictions(
             coco_gt=coco_gt,
