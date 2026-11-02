@@ -30,6 +30,7 @@ if str(_PROJ) not in sys.path:
 
 from baseline_common.run_outputs import resolve_eval_output_dir  # noqa: E402
 from baseline_common.sam3_coco_utils import (  # noqa: E402
+    build_sam3_image_model_from_training_checkpoint,
     compute_mask_miou_dice,
     dump_coco_segmentation_predictions_json,
     evaluate_coco_offline,
@@ -79,7 +80,7 @@ def resolve_labeling_json(preferred: Path) -> Path:
 
 
 def install_hydra_config(sam3_root: Path) -> Path:
-    src = _PROJ / "baseline6" / "configs" / "proj06_singular_finetune.yaml"
+    src = _PROJ / "baseline3" / "configs" / "proj06_singular_finetune.yaml"
     if not src.is_file():
         raise FileNotFoundError(f"Missing Hydra config: {src}")
     dst_dir = sam3_root / "sam3" / "train" / "configs"
@@ -171,15 +172,8 @@ def run_test_eval(
 
     if infer_n <= 1:
         from sam3.model.sam3_image_processor import Sam3Processor
-        from sam3.model_builder import build_sam3_image_model
-
-        model = build_sam3_image_model(
-            bpe_path=str(bpe_path),
-            device=device,
-            eval_mode=True,
-            checkpoint_path=str(checkpoint),
-            load_from_HF=False,
-            enable_segmentation=True,
+        model = build_sam3_image_model_from_training_checkpoint(
+            bpe_path=bpe_path, checkpoint_path=checkpoint, device=device
         )
         processor = Sam3Processor(model, device=device)
 
