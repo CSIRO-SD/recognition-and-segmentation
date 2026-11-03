@@ -163,13 +163,13 @@ The seen and unseen rows have different taxonomic compositions and should not be
 | Singular | Grounding DINO + SAM2 | Zero-shot | 13.73 | 15.12 | 6.51 | 7.66 | 1.88 | 0.34 | 7.50 | 8.94 | 1.78 | 0.23 |
 | Singular | DINOv3 | Zero-shot | 3.04 | 5.07 | 0.77 | 0.21 | 0.00 | 0.00 | 0.39 | 0.39 | 0.00 | 0.00 |
 | Singular | SAM3 | Zero-shot | 44.28 | 47.03 | 21.43 | 23.59 | 18.49 | 2.55 | 23.02 | 25.47 | 19.31 | 2.58 |
-| Singular | SAM3 | Fine-tuned | 89.18 | 84.12 | 83.41 | 84.87 | 74.94 | 59.15 | 82.14 | 78.92 | 71.61 | 52.27 |
+| Singular | SAM3 | Fine-tuned | 84.12 | 89.18 | 83.41 | 84.87 | 74.94 | 59.15 | 82.14 | 78.92 | 71.61 | 52.27 |
 | Spatial-aware | CLIPSeg | Zero-shot | 6.30 | 9.04 | 0.17 | 0.21 | 0.32 | 0.00 | 0.46 | 0.58 | 0.34 | 0.00 |
 | Spatial-aware | Grounding DINO + SAM | Zero-shot | 3.72 | 4.75 | 0.70 | 0.85 | 0.39 | 0.00 | 1.04 | 1.25 | 0.36 | 0.00 |
 | Spatial-aware | Grounding DINO + SAM2 | Zero-shot | 3.75 | 4.69 | 0.73 | 0.89 | 0.45 | 0.00 | 1.03 | 1.35 | 0.40 | 0.00 |
 | Spatial-aware | DINOv3 | Zero-shot | 3.04 | 4.77 | 0.16 | 0.19 | 0.00 | 0.00 | 0.32 | 0.37 | 0.00 | 0.00 |
 | Spatial-aware | SAM3 | Zero-shot | 14.17 | 14.97 | 7.68 | 8.95 | 7.01 | 0.57 | 13.27 | 17.03 | 8.20 | 0.77 |
-| Spatial-aware | SAM3 | Fine-tuned | 65.16 | 62.07 | 54.65 | 56.30 | 30.93 | 15.33 | 44.59 | 54.69 | 29.38 | 15.16 |
+| Spatial-aware | SAM3 | Fine-tuned | 62.07 | 65.16 | 54.65 | 56.30 | 30.93 | 15.33 | 44.59 | 54.69 | 29.38 | 15.16 |
 
 ## Running the released code
 
