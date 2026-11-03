@@ -2,7 +2,7 @@
 
 [![Project page](https://img.shields.io/badge/Project-InSpect-2c7a7b)](https://csiro-sd.github.io/InSpect/)
 [![Paper](https://img.shields.io/badge/Paper-OpenReview-8c1b13)](https://openreview.net/forum?id=51J0UrBZZy)
-[![Dataset](https://img.shields.io/badge/Dataset-Hugging%20Face-ffd21e)](https://huggingface.co/datasets/anonymous-dataset/InSpect)
+[![Dataset](https://img.shields.io/badge/Dataset-Hugging%20Face-ffd21e)](https://huggingface.co/datasets/junhao-zhang/InSpect)
 
 InSpect is a curated natural-history collection dataset for visual insect specimen understanding. It contains **48,184** digitized specimen images spanning **653 taxa**, with aligned insect crops, hierarchical taxonomy, label-derived structured metadata, and **1,859** images with fine-grained anatomical part masks.
 
@@ -17,7 +17,7 @@ The benchmark separates two capabilities:
 
 - [Project page](https://csiro-sd.github.io/InSpect/)
 - [Paper / OpenReview](https://openreview.net/forum?id=51J0UrBZZy)
-- [Dataset on Hugging Face](https://huggingface.co/datasets/anonymous-dataset/InSpect)
+- [Dataset on Hugging Face](https://huggingface.co/datasets/junhao-zhang/InSpect)
 
 ## Repository structure
 
@@ -39,7 +39,7 @@ The benchmark separates two capabilities:
 
 ## Data
 
-The [Hugging Face dataset repository](https://huggingface.co/datasets/anonymous-dataset/InSpect) provides:
+The [Hugging Face dataset repository](https://huggingface.co/datasets/junhao-zhang/InSpect) provides:
 
 - `specimen_benchmark_metadata.csv` and `specimen_benchmark_metadata.jsonl`
 - `final_benchmark_data_crops.zip`
