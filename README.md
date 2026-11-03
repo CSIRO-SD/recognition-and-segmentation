@@ -197,7 +197,7 @@ python train_benchmark_cls.py \
   --device cuda:0
 ```
 
-Available recipes are `resnet50`, `convnext_tiny`, `vit_b16`, `dinov2_vitb_linear`, `dinov2_vitb_finetune`, `dinov3_vitl_linear`, and `dinov3_vitl_finetune`. See the [recipe registry and wrappers](https://github.com/CSIRO-SD/recognition-and-segmentation/tree/281643016e81057c9bbb958b1bc74216d352e2a8/supervised_taxonomic_recognition).
+Available recipes are `resnet50`, `convnext_tiny`, `vit_b16`, `dinov2_vitb_linear`, `dinov2_vitb_finetune`, `dinov3_vitl_linear`, and `dinov3_vitl_finetune`. See the [recipe registry and wrappers](https://github.com/CSIRO-SD/recognition-and-segmentation/tree/281643016e81057c9bbb958b1bc74216d352e2a8/supervised_taxonomic_recognition). Some checkpoints are [here](https://huggingface.co/junhao-zhang/InSpect/tree/main/supervised_recognition_checkpoints).
 
 ### Open taxonomic recognition
 
@@ -237,7 +237,7 @@ python scripts/run_zeroshot.py \
   --topk 5
 ```
 
-For the image-plus-metadata variant, add `--weak-col weak_context_text --meta-loss-weight 0.25` during training. The released training and evaluation wrappers are [here](https://github.com/CSIRO-SD/recognition-and-segmentation/tree/281643016e81057c9bbb958b1bc74216d352e2a8/open_taxonomic_recognition).
+For the image-plus-metadata variant, add `--weak-col weak_context_text --meta-loss-weight 0.25` during training. The released training and evaluation wrappers are [here](https://github.com/CSIRO-SD/recognition-and-segmentation/tree/281643016e81057c9bbb958b1bc74216d352e2a8/open_taxonomic_recognition). Some checkpoints are [here](https://huggingface.co/junhao-zhang/InSpect/tree/main/open_recognition_checkpoints).
 
 ### Supervised anatomical part segmentation
 
